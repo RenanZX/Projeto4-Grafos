@@ -79,8 +79,11 @@ private:
   std::vector<Deputy> Sort_Vector(std::vector<Deputy> X,int split);
   int split_value;
   int split_attribute;
+  vector<Deputy>::iterator lastbegin;
   std::vector<int> atributos;
   std::vector<Tree> set_of_tree;
+  void setSplitAtt();
+  void reset_AttVector();
   std::vector<Deputy> sample(std::vector<Deputy> X, int sub_sample);
 public:
   Forest();

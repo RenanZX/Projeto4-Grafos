@@ -249,7 +249,8 @@ std::vector<Deputy> Forest::Sort_Vector(std::vector<Deputy> X,int split){
 
 std::vector<Deputy> Forest::sample(std::vector<Deputy> X, int sub_sample){
 	std::size_t const size = ceil(X.size()/sub_sample);
-	std::vector<Deputy> split(X.begin(),X.begin()+size);
+	std::vector<Deputy> split(lastbegin,X.begin()+size);
+	lastbegin = X.begin()+size;
 	return split;
 }
 
@@ -298,15 +299,34 @@ int Forest::PathLengthLonger(int x){
 	return maior;
 }
 
+void Forest::setSplitAtt(){
+	split_attribute = atributos.back();
+	atributos.pop_back();
+}
+
+void Forest::reset_AttVector(){
+	int j = 7;
+	for(int i=0;i<8;i++){
+		atributos[i] = j;
+		j--;
+	}
+}
+
 void Forest::iForest(std::vector<Deputy> X,int trees,int sub_sample){
 	Tree tree;
 	std::vector<Deputy> Y;
-	int i =0;
+	int i =0,j=0;
 	int limit_height = ceil(log2(sub_sample));
+	lastbegin = X.begin();
+
 	for(i=1;i<trees;i++){
-		split_attribute = atributos.back();
-		atributos.pop_back();
+		setSplitAtt();
 		Y = sample(X,sub_sample);
 		putTree(iTree(Y,0,limit_height));
+		if(j >= 8){
+			reset_AttVector();
+			j=0;
+		}
+		j++;
 	}
 }
