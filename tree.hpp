@@ -23,6 +23,8 @@ private:
   Deputy deputado;
   Node *right;
   Node *left;
+  int level_right;
+  int level_left;
 public:
   int split_attribute;
   int split_value;
@@ -73,9 +75,11 @@ private:
   static bool Compare_Refund_value(const Deputy& dep1,const Deputy& dep2);
   std::vector<Deputy> filter_left(std::vector<Deputy> X,int limit);
   std::vector<Deputy> filter_right(std::vector<Deputy> X,int limit);
-  std::vector<Deputy> Sort_Vector(std::vector<Deputy> X);
-  int split_attribute;
+  std::vector<Deputy> Sort_Vector(std::vector<Deputy> X,int split);
+  bool TestNode(Deputy data, Node* leaf);
   int split_value;
+  int split_attribute;
+  int vector<int> atributos;
   std::vector<Tree> set_of_tree;
   std::vector<Deputy> sample(std::vector<Deputy> X, int sub_sample);
 public:
