@@ -46,6 +46,7 @@ private:
   void Insert_Leaf(Node* leaf,Node* local);
   void Destroy_tree(Node *no);
   int PathLength(int x,Node* no,int current_length);
+  bool TestNode(Deputy data, Node* leaf);
 public:
   Tree();
   ~Tree();
@@ -76,10 +77,9 @@ private:
   std::vector<Deputy> filter_left(std::vector<Deputy> X,int limit);
   std::vector<Deputy> filter_right(std::vector<Deputy> X,int limit);
   std::vector<Deputy> Sort_Vector(std::vector<Deputy> X,int split);
-  bool TestNode(Deputy data, Node* leaf);
   int split_value;
   int split_attribute;
-  int vector<int> atributos;
+  std::vector<int> atributos;
   std::vector<Tree> set_of_tree;
   std::vector<Deputy> sample(std::vector<Deputy> X, int sub_sample);
 public:

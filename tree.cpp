@@ -47,42 +47,42 @@ bool Tree::TestNode(Deputy data,Node* leaf){
 	if(leaf->split_attribute!=-1){
 		switch(leaf->split_attribute){
 			case DEP_NAME:
-				if(data.deputy_name < leaf->deputy_name){
+				if(data.deputy_name < leaf->deputado.deputy_name){
 					return true;
 				}
 			break;
 			case ESTATE:
-				if(data.estate < leaf->estate){
+				if(data.estate < leaf->deputado.estate){
 					return true;
 				}
 			break;
 			case PARTY:
-				if(data.party < leaf->party){
+				if(data.party < leaf->deputado.party){
 					return true;
 				}
 			break;
 			case REFOUND_DESCRIPTION:
-				if(data.refound_description < leaf->refound_description){
+				if(data.refound_description < leaf->deputado.refound_description){
 					return true;
 				}
 			break;
 			case COMPANY_NAME:
-				if(data.company_name < leaf->company_name){
+				if(data.company_name < leaf->deputado.company_name){
 					return true;
 				}
 			break;
 			case COMPANY_ID:
-				if(data.company_id < leaf->company_id){
+				if(data.company_id < leaf->deputado.company_id){
 					return true;
 				}
 			break;
 			case REFUND_DATE:
-				if(data.refund_date < leaf->refund_date){
+				if(data.refund_date < leaf->deputado.refund_date){
 					return true;
 				}
 			break;
 			case REFUND_VALUE:
-				if(data.refund_value < leaf->refund_value){
+				if(data.refund_value < leaf->deputado.refund_value){
 					return true;
 				}
 			break;
