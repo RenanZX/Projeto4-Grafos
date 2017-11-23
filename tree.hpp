@@ -43,13 +43,14 @@ private:
   void Insert(Deputy data,Node* leaf);
   void Insert_Leaf(Node* leaf,Node* local);
   void Destroy_tree(Node *no);
+  int PathLength(int x,Node* no,int current_length);
 public:
   Tree();
   ~Tree();
   void Insert(Deputy data);
   void left(Tree tree);
   void right(Tree tree);
-  int PathLength(int x,Node* no,int current_length);
+  int PathLength(int x,int current_length = 0);
 };
 
 class Forest{
@@ -83,6 +84,7 @@ public:
   void putTree(Tree tree);
   Tree iTree(std::vector<Deputy> X,int current_height,int limit_height);
   void iForest(std::vector<Deputy> X,int trees,int sub_sample = 256);
+  int PathLengthLonger(int x);
 };
 
 #endif

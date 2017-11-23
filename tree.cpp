@@ -113,6 +113,10 @@ int Tree::PathLength(int x,Node* no,int current_length){
 	return PathLength(x,no->right,current_length);
 }
 
+int Tree::PathLength(int x,int current_length){
+	return PathLength(x,root,current_length);
+}
+
 Forest::Forest(){
 
 }
@@ -224,6 +228,19 @@ Tree Forest::iTree(std::vector<Deputy> X,int current_height,int limit_height){
 		tree.right(iTree(Xr,current_height+1,limit_height));
 	}
 	return tree;
+}
+
+int Forest::PathLengthLonger(int x){
+	int maior = 0;
+	int corrente = 0;
+
+	for(int i=0;i<signed(set_of_tree.size());i++){
+		corrente = set_of_tree[i].PathLength(x);
+		if(corrente > maior){
+			maior = corrente;
+		}
+	}
+	return maior;
 }
 
 void Forest::iForest(std::vector<Deputy> X,int trees,int sub_sample){

@@ -1,14 +1,24 @@
 #ifndef GRAFOS_H
 #define GRAFOS_H
 #include "tree.hpp"
+
 using namespace std;
 
 class Grafo{
 private:
+  static const int DEP_NAME;
+  static const int ESTATE;
+  static const int PARTY;
+  static const int REFOUND_DESCRIPTION;
+  static const int COMPANY_NAME;
+  static const int COMPANY_ID;
+  static const int REFUND_DATE;
+  static const int REFUND_VALUE;
   std::vector<Deputy> lista_v; /*lista de vertices do grafo*/
+  std::vector<int> anomalies;
   Tree tree;
   Forest forest;
-  string anomally_found();
+  void find_anomally();
 public:
   Grafo(); /*construtor e destrutor do grafo*/
   ~Grafo();
