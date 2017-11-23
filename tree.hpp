@@ -23,6 +23,8 @@ private:
   Deputy deputado;
   Node *right;
   Node *left;
+  int level_right;
+  int level_left;
 public:
   int split_attribute;
   int split_value;
@@ -43,13 +45,15 @@ private:
   void Insert(Deputy data,Node* leaf);
   void Insert_Leaf(Node* leaf,Node* local);
   void Destroy_tree(Node *no);
+  int PathLength(int x,Node* no,int current_length);
+  bool TestNode(Deputy data, Node* leaf);
 public:
   Tree();
   ~Tree();
   void Insert(Deputy data);
   void left(Tree tree);
   void right(Tree tree);
-  int PathLength(int x,Node* no,int current_length);
+  int PathLength(int x,int current_length = 0);
 };
 
 class Forest{
@@ -72,10 +76,14 @@ private:
   static bool Compare_Refund_value(const Deputy& dep1,const Deputy& dep2);
   std::vector<Deputy> filter_left(std::vector<Deputy> X,int limit);
   std::vector<Deputy> filter_right(std::vector<Deputy> X,int limit);
-  std::vector<Deputy> Sort_Vector(std::vector<Deputy> X);
-  int split_attribute;
+  std::vector<Deputy> Sort_Vector(std::vector<Deputy> X,int split);
   int split_value;
+  int split_attribute;
+  vector<Deputy>::iterator lastbegin;
+  std::vector<int> atributos;
   std::vector<Tree> set_of_tree;
+  void setSplitAtt();
+  void reset_AttVector();
   std::vector<Deputy> sample(std::vector<Deputy> X, int sub_sample);
 public:
   Forest();
@@ -83,6 +91,7 @@ public:
   void putTree(Tree tree);
   Tree iTree(std::vector<Deputy> X,int current_height,int limit_height);
   void iForest(std::vector<Deputy> X,int trees,int sub_sample = 256);
+  int PathLengthLonger(int x);
 };
 
 #endif
