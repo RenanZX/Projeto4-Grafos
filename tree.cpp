@@ -249,8 +249,8 @@ std::vector<Deputy> Forest::Sort_Vector(std::vector<Deputy> X,int split){
 
 std::vector<Deputy> Forest::sample(std::vector<Deputy> X, int sub_sample){
 	std::size_t const size = ceil(X.size()/sub_sample);
-	std::vector<Deputy> split(lastbegin,X.begin()+size);
-	lastbegin = X.begin()+size;
+	std::vector<Deputy> split(lastbegin,lastbegin+size);
+	lastbegin = lastbegin+size;
 	return split;
 }
 
