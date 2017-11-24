@@ -1,7 +1,4 @@
 #include "dados.hpp"
-#include <bits/stdc++.h>
-#include <iostream>
-#include <string>
 
 void InsereRegistros(Grafo *grafo){
   Deputy dep;
@@ -11,7 +8,7 @@ void InsereRegistros(Grafo *grafo){
 
   int i=1;
   ifstream txtFile;
-  txtFile.open("dadosPoliticosReduzidos");
+  txtFile.open("dados-com300-registros");
      
 
   // Passa pelas linhas que tem informacoes acerca dos professores
