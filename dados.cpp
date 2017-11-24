@@ -1,5 +1,6 @@
 #include "dados.hpp"
 
+<<<<<<< HEAD
 void InsereRegistros(Grafo *grafo){
   Deputy dep;
 
@@ -50,3 +51,5 @@ void InsereRegistros(Grafo *grafo){
     i++;    
   }
 }
+=======
+>>>>>>> b5069c9873875f9ad6a451ab6200d420af24db39
