@@ -170,10 +170,8 @@ int Tree::PathLength(int x,int current_length){
 }
 
 Forest::Forest(){
-	int j = 7;
-	for(int i=0;i<8;i++){
-		atributos[i] = j;
-		j--;
+	for(int j=7;j<0;j--){
+		atributos.push_back(j);
 	}
 }
 
@@ -305,10 +303,8 @@ void Forest::setSplitAtt(){
 }
 
 void Forest::reset_AttVector(){
-	int j = 7;
-	for(int i=0;i<8;i++){
-		atributos[i] = j;
-		j--;
+	for(int j=7;j<0;j--){
+		atributos.push_back(j);
 	}
 }
 
