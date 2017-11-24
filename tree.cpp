@@ -1,14 +1,5 @@
 #include "tree.hpp"
 
-const int Forest::DEP_NAME = 0;
-const int Forest::ESTATE = 1;
-const int Forest::PARTY = 2;
-const int Forest::REFOUND_DESCRIPTION = 3;
-const int Forest::COMPANY_NAME = 4;
-const int Forest::COMPANY_ID = 5;
-const int Forest::REFUND_DATE = 6;
-const int Forest::REFUND_VALUE = 7;
-
 const int Tree::DEP_NAME = 0;
 const int Tree::ESTATE = 1;
 const int Tree::PARTY = 2;
@@ -22,13 +13,19 @@ Node::Node(Deputy dado){
 	deputado = dado;
 	right = NULL;
 	left = NULL;
-	split_attribute = -1;
 	level_left = 0;
 	level_right = 0;
 }
 
 Tree::Tree(){
 	root = NULL;
+	split_attribute = -1;
+}
+
+Tree::Tree(int split_attr,std::vector<Deputy> data,int limit_height){
+	root = NULL;
+	split_attribute = split_attr;
+	iTree(data,limit_height);
 }
 
 void Tree::Destroy_tree(Node * no){
@@ -44,8 +41,8 @@ Tree::~Tree(){
 }
 
 bool Tree::TestNode(Deputy data,Node* leaf){
-	if(leaf->split_attribute!=-1){
-		switch(leaf->split_attribute){
+	if(split_attribute!=-1){
+		switch(split_attribute){
 			case DEP_NAME:
 				if(data.deputy_name < leaf->deputado.deputy_name){
 					return true;
@@ -133,9 +130,11 @@ void Tree::Insert(Deputy data){
 	}
 }
 
-void Tree::left(Tree tree){
+/*void Tree::left(Tree tree){
 	if(root!=NULL){
-		if(root->left!=NULL){
+		cout << "left 1" << endl;
+		if((root->left!=NULL)&&(tree.root!=root)){
+			cout << "left 2" << endl;
 			Insert_Leaf(tree.root,root->left);		
 		}
 	}
@@ -143,145 +142,73 @@ void Tree::left(Tree tree){
 
 void Tree::right(Tree tree){
 	if(root!=NULL){
-		if(root->right!=NULL){
+		if((root->right!=NULL)&&(tree.root!=root)){
 			Insert_Leaf(tree.root,root->right);		
 		}
 	}
 }
-
-int Tree::PathLength(int x,Node* no,int current_length){
+*/
+int Tree::PathLength(Node* no,int current_length){
 	if(no==NULL){
-		return 0;
-	}
-	if(no->split_attribute == x){
-		current_length++;
-	}
-	if((no->right==NULL)&&(no->left==NULL)){
 		return current_length;
 	}
-	if(no->level_right < no->level_left){
-		return PathLength(x,no->left,current_length);
+	
+	if((no->right==NULL)&&(no->left==NULL)){
+		PathAnomally.push_back(no->deputado);
+		return current_length;
 	}
-	return PathLength(x,no->right,current_length);
+	
+	if(no->level_right < no->level_left){
+		return PathLength(no->left,current_length+1);
+	}
+	return PathLength(no->right,current_length+1);
 }
 
-int Tree::PathLength(int x,int current_length){
-	return PathLength(x,root,current_length);
+int Tree::PathLength(int current_length){
+	return PathLength(root,current_length);
+}
+
+
+void Tree::iTree(std::vector<Deputy> X,int limit_height){
+	if(root == NULL){
+		int split_value = X.size()/2;
+		root = new Node(X[split_value]);
+	}
+	for(int i=0;i<(signed)X.size();i++){
+		Insert(X[i]);
+	}
+	if((root->level_right > limit_height)||(root->level_left > limit_height)){
+		root->deputado.anomally = true;
+	}
 }
 
 Forest::Forest(){
-	for(int j=7;j<0;j--){
-		atributos.push_back(j);
-	}
+	
 }
 
-void Forest::operator+(Tree tree){
+/*void Forest::operator+(Tree tree){
 	set_of_tree.push_back(tree);
-}
+}*/
 
-void Forest::putTree(Tree tree){
+void Forest::putTree(Tree *tree){
 	set_of_tree.push_back(tree);
-}
-
-bool Forest::Compare_Dep_Name(const Deputy& dep1,const Deputy& dep2){
-	return dep1.deputy_name < dep2.deputy_name;
-}
-
-bool Forest::Compare_Estate(const Deputy& dep1,const Deputy& dep2){
-	return dep1.estate < dep2.estate;
-}
-
-bool Forest::Compare_Party(const Deputy& dep1,const Deputy& dep2){
-	return dep1.party < dep2.party;
-}
-
-bool Forest::Compare_Refound_description(const Deputy& dep1,const Deputy& dep2){
-	return dep1.refound_description < dep2.refound_description;
-}
-
-bool Forest::Compare_Company_Name(const Deputy& dep1,const Deputy& dep2){
-	return dep1.company_name < dep2.company_name;
-}
-
-bool Forest::Compare_Company_Id(const Deputy& dep1,const Deputy& dep2){
-	return dep1.company_id < dep2.company_id;
-}
-
-bool Forest::Compare_Refund_date(const Deputy& dep1,const Deputy& dep2){
-	return dep1.refund_date < dep2.refund_date;
-}
-
-bool Forest::Compare_Refund_value(const Deputy& dep1,const Deputy& dep2){
-	return dep1.refund_value < dep2.refund_value;
-}
-
-std::vector<Deputy> Forest::Sort_Vector(std::vector<Deputy> X,int split){
-	switch(split){
-		case DEP_NAME:
-			sort(X.begin(),X.end(),Compare_Dep_Name);
-			break;
-		case ESTATE:
-			sort(X.begin(),X.end(),Compare_Estate);
-			break;
-		case PARTY:
-			sort(X.begin(),X.end(),Compare_Party);
-			break;
-		case REFOUND_DESCRIPTION:
-			sort(X.begin(),X.end(),Compare_Refound_description);
-			break;
-		case COMPANY_NAME:
-			sort(X.begin(),X.end(),Compare_Company_Name);
-			break;
-		case COMPANY_ID:
-			sort(X.begin(),X.end(),Compare_Company_Id);
-			break;
-		case REFUND_DATE:
-			sort(X.begin(),X.end(),Compare_Refund_date);
-			break;
-		case REFUND_VALUE:
-			sort(X.begin(),X.end(),Compare_Refund_value);
-			break;
-	}
-	return X;
 }
 
 std::vector<Deputy> Forest::sample(std::vector<Deputy> X, int sub_sample){
 	std::size_t const size = ceil(X.size()/sub_sample);
-	std::vector<Deputy> split(lastbegin,lastbegin+size);
-	lastbegin = lastbegin+size;
-	return split;
-}
-
-std::vector<Deputy> Forest::filter_left(std::vector<Deputy> X,int limit){
-	std::size_t const limited = limit;
-	std::vector<Deputy> split_lo(X.begin(),X.begin()+limited);
-	return split_lo;
-}
-
-std::vector<Deputy> Forest::filter_right(std::vector<Deputy> X,int limit){
-	std::size_t const limited = limit;
-	std::vector<Deputy> split_hi(X.begin()+limited,X.end());
-	return split_hi;
-}
-
-Tree Forest::iTree(std::vector<Deputy> X,int current_height,int limit_height){
-	Tree tree;
-	if((current_height >= limit_height)&&(X.size() == 1)){
-		tree.Insert(X.back());
-		X.pop_back();
-		return tree;
-	}else{
-		if(tree.root->split_attribute == -1){
-			tree.root->split_attribute = split_attribute;
-		}
-		tree.root->split_value = X.size()/2;
-		X = Sort_Vector(X,tree.root->split_attribute);
-		std::vector<Deputy> Xl = filter_left(X,tree.root->split_value);
-		std::vector<Deputy> Xr = filter_right(X,tree.root->split_value);
-		tree.left(iTree(Xl,current_height+1,limit_height));
-		tree.right(iTree(Xr,current_height+1,limit_height));
+	if(lastIndex != (signed)X.size()){
+		std::vector<Deputy> split(lastbegin,lastbegin+size);
+		lastbegin = lastbegin+size;
+		lastIndex = lastIndex+size;
+		return split;
 	}
-	return tree;
+	return std::vector<Deputy>();
+}
+
+void Forest::initialize_VectorAtt(){
+	for(int j=7;j>0;j--){
+		atributos.push_back(j);
+	}
 }
 
 int Forest::PathLengthLonger(int x){
@@ -289,15 +216,21 @@ int Forest::PathLengthLonger(int x){
 	int corrente = 0;
 
 	for(int i=0;i<signed(set_of_tree.size());i++){
-		corrente = set_of_tree[i].PathLength(x);
-		if(corrente > maior){
-			maior = corrente;
+		if(x == set_of_tree[i]->split_attribute){
+			corrente = set_of_tree[i]->PathLength();
+			if(corrente > maior){
+				maior = corrente;
+				pathAnomaly = set_of_tree[i]->PathAnomally;
+			}
 		}
 	}
 	return maior;
 }
 
 void Forest::setSplitAtt(){
+	if(atributos.size()==0){
+		initialize_VectorAtt();
+	}
 	split_attribute = atributos.back();
 	atributos.pop_back();
 }
@@ -308,21 +241,36 @@ void Forest::reset_AttVector(){
 	}
 }
 
+Tree* Forest::iTree(std::vector<Deputy> X,int limit_height){
+	Tree *tree = new Tree();
+	tree->split_attribute = split_attribute;
+	tree->iTree(X,limit_height);
+	return tree;
+}
+
+std::vector<Deputy> Forest::PathAnomally(){
+	return pathAnomaly;
+}
+
 void Forest::iForest(std::vector<Deputy> X,int trees,int sub_sample){
-	Tree tree;
 	std::vector<Deputy> Y;
-	int i =0,j=0;
+	int i =1,j=0;
 	int limit_height = ceil(log2(sub_sample));
 	lastbegin = X.begin();
+	lastIndex = 0;
+	Y = sample(X,sub_sample);
 
-	for(i=1;i<trees;i++){
+	while((i<trees)&&(!Y.empty())){
 		setSplitAtt();
-		Y = sample(X,sub_sample);
-		putTree(iTree(Y,0,limit_height));
-		if(j >= 8){
-			reset_AttVector();
-			j=0;
+		if(!Y.empty()){
+			putTree(iTree(Y,limit_height));
+			if(j >= 8){
+				reset_AttVector();
+				j=0;
+			}
+			j++;
 		}
-		j++;
+		Y = sample(X,sub_sample);
+		i++;
 	}
 }

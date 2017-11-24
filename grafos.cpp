@@ -34,15 +34,80 @@ void Grafo::find_anomally(){
 		if(corrente >= maior){
 			if((anomalies.size()!=0)&&(maior!=corrente)){
 				anomalies.pop_back();
+				AnomaliePaths.pop_back();
 			}
 			maior = corrente;
 			anomalies.push_back(i);
+			AnomaliePaths.push_back(forest.PathAnomally());
 		}
 	}
 }
 
-void Grafo::CalculateForest(){
-	forest.iForest(lista_v,100);
+void Grafo::CalculateForest(int limite){
+	limite = limite/6;
+	forest.iForest(lista_v,100,limite);
+	find_anomally();
+}
+
+void Grafo::ImprimirInstanciaAnomala(int x){
+	switch(x){
+		case DEP_NAME:
+			for(int j=0;j<(signed)AnomaliePaths.size();j++){
+				for(int i=0;i<(signed)AnomaliePaths[j].size();i++){
+					cout << AnomaliePaths[j][i].deputy_name << endl;
+				}
+			}
+			break;
+		case ESTATE:
+			for(int j=0;j<(signed)AnomaliePaths.size();j++){
+				for(int i=0;i<(signed)AnomaliePaths[j].size();i++){
+					cout << AnomaliePaths[j][i].estate << endl;
+				}
+			}
+			break;
+		case PARTY:
+			for(int j=0;j<(signed)AnomaliePaths.size();j++){
+				for(int i=0;i<(signed)AnomaliePaths[j].size();i++){
+					cout << AnomaliePaths[j][i].party << endl;
+				}
+			}
+			break;
+		case REFOUND_DESCRIPTION:
+			for(int j=0;j<(signed)AnomaliePaths.size();j++){
+				for(int i=0;i<(signed)AnomaliePaths[j].size();i++){
+					cout << AnomaliePaths[j][i].refound_description << endl;
+				}
+			}
+			break;
+		case COMPANY_NAME:
+			for(int j=0;j<(signed)AnomaliePaths.size();j++){
+				for(int i=0;i<(signed)AnomaliePaths[j].size();i++){
+					cout << AnomaliePaths[j][i].company_name << endl;
+				}
+			}
+			break;
+		case COMPANY_ID:
+			for(int j=0;j<(signed)AnomaliePaths.size();j++){
+				for(int i=0;i<(signed)AnomaliePaths[j].size();i++){
+					cout << AnomaliePaths[j][i].company_id << endl;
+				}
+			}
+			break;
+		case REFUND_DATE:
+			for(int j=0;j<(signed)AnomaliePaths.size();j++){
+				for(int i=0;i<(signed)AnomaliePaths[j].size();i++){
+					cout << AnomaliePaths[j][i].refund_date << endl;
+				}
+			}
+			break;
+		case REFUND_VALUE:
+			for(int j=0;j<(signed)AnomaliePaths.size();j++){
+				for(int i=0;i<(signed)AnomaliePaths[j].size();i++){
+					cout << AnomaliePaths[j][i].refund_value << endl;
+				}
+			}
+			break;
+	}
 }
 
 void Grafo::ImprimirGrafo()
@@ -77,6 +142,7 @@ void Grafo::ImprimirGrafo()
 				cout << "valores do reembolso" << endl;
 				break;
 		}
+		ImprimirInstanciaAnomala(i);
 		cout << "\n" << endl;
 	}
 }
