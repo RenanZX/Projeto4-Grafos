@@ -35,8 +35,7 @@ void Grafo::find_anomally(){
 }
 
 void Grafo::CalculateForest(int limite){
-	limite = limite/6;
-	if(limite!=0){
+	if((limite!=0)&&(limite < 10000)){
 		forest.iForest(lista_v,100,limite);
 	}else{
 		forest.iForest(lista_v,100);

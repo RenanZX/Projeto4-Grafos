@@ -17,7 +17,7 @@ public:
   Grafo(); /*construtor e destrutor do grafo*/
   ~Grafo();
   void InsereVertice(Deputy deputado); /*Insere os vertices no grafo contendo os deputados*/
-  void CalculateForest(int limite); /*calcula a floresta e recebe um limite como parametro*/
+  void CalculateForest(int limite = 50); /*calcula a floresta e recebe um limite como parametro*/
   void ImprimirGrafo(); /*imprime o grafo*/
 };
 
