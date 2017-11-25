@@ -3,6 +3,6 @@
 
 #include "grafos.hpp"
 
-void InsereRegistros(Grafo *grafo);
+void InsereRegistros(Grafo *grafo, int nro_reg);
 
 #endif

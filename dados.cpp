@@ -1,6 +1,6 @@
 #include "dados.hpp"
 
-void InsereRegistros(Grafo *grafo){
+void InsereRegistros(Grafo *grafo, int nro_reg){
   Deputy dep;
 
   string line;
@@ -9,10 +9,10 @@ void InsereRegistros(Grafo *grafo){
   int i=1;
   ifstream txtFile;
   txtFile.open("dirty_deputies_v2-withoutAnyCols");
-     
+  
 
   // Passa pelas linhas que tem informacoes acerca dos politicos
-  while(!txtFile.eof() && (i-1) <= 100000){ // OBS: esse 1000000 representa a quantidade que vc quer ler.
+  while(!txtFile.eof() && (i-1) <= nro_reg){ // OBS: esse 1000000 representa a quantidade que vc quer ler.
 
     getline(txtFile, line);// Pega a linha do loop.
 
