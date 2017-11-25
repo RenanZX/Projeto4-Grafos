@@ -1,14 +1,5 @@
 #include "grafos.hpp"
 
-const int Grafo::DEP_NAME = 0;
-const int Grafo::ESTATE = 1;
-const int Grafo::PARTY = 2;
-const int Grafo::REFOUND_DESCRIPTION = 3;
-const int Grafo::COMPANY_NAME = 4;
-const int Grafo::COMPANY_ID = 5;
-const int Grafo::REFUND_DATE = 6;
-const int Grafo::REFUND_VALUE = 7;
-
 
 Grafo::Grafo()
 {
@@ -45,7 +36,11 @@ void Grafo::find_anomally(){
 
 void Grafo::CalculateForest(int limite){
 	limite = limite/6;
-	forest.iForest(lista_v,100,limite);
+	if(limite!=0){
+		forest.iForest(lista_v,100,limite);
+	}else{
+		forest.iForest(lista_v,100);
+	}
 	find_anomally();
 }
 
