@@ -3,18 +3,11 @@
 
 int main(){
   
-<<<<<<< HEAD
   Grafo grafo;
 
   InsereRegistros(&grafo);
-  //grafo.CalculateForest();
+  grafo.CalculateForest(100000);
   grafo.ImprimirGrafo();
-=======
-  //Grafo grafo;
 
-  //InsereRegistros(&grafo);
-  //grafo.CalculateForest(300);
-  //grafo.ImprimirGrafo();
->>>>>>> b5069c9873875f9ad6a451ab6200d420af24db39
 	return 0;
 }
