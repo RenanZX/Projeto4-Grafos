@@ -1,14 +1,5 @@
 #include "tree.hpp"
 
-const int Tree::DEP_NAME = 0;
-const int Tree::ESTATE = 1;
-const int Tree::PARTY = 2;
-const int Tree::REFOUND_DESCRIPTION = 3;
-const int Tree::COMPANY_NAME = 4;
-const int Tree::COMPANY_ID = 5;
-const int Tree::REFUND_DATE = 6;
-const int Tree::REFUND_VALUE = 7;
-
 Node::Node(Deputy dado){
 	deputado = dado;
 	right = NULL;
@@ -130,24 +121,6 @@ void Tree::Insert(Deputy data){
 	}
 }
 
-/*void Tree::left(Tree tree){
-	if(root!=NULL){
-		cout << "left 1" << endl;
-		if((root->left!=NULL)&&(tree.root!=root)){
-			cout << "left 2" << endl;
-			Insert_Leaf(tree.root,root->left);		
-		}
-	}
-}
-
-void Tree::right(Tree tree){
-	if(root!=NULL){
-		if((root->right!=NULL)&&(tree.root!=root)){
-			Insert_Leaf(tree.root,root->right);		
-		}
-	}
-}
-*/
 int Tree::PathLength(Node* no,int current_length){
 	if(no==NULL){
 		return current_length;
@@ -185,10 +158,6 @@ void Tree::iTree(std::vector<Deputy> X,int limit_height){
 Forest::Forest(){
 	
 }
-
-/*void Forest::operator+(Tree tree){
-	set_of_tree.push_back(tree);
-}*/
 
 void Forest::putTree(Tree *tree){
 	set_of_tree.push_back(tree);
