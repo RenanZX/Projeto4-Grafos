@@ -130,10 +130,12 @@ int Tree::PathLength(Node* no,int current_length){
 		PathAnomally.push_back(no->deputado);
 		return current_length;
 	}
-	
+
 	if(no->level_right < no->level_left){
+		PathAnomally.push_back(no->deputado);
 		return PathLength(no->left,current_length+1);
 	}
+	PathAnomally.push_back(no->deputado);
 	return PathLength(no->right,current_length+1);
 }
 
