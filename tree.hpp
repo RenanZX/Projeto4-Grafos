@@ -1,10 +1,20 @@
 #ifndef TREE_H
 #define TREE_H
 #include <bits/stdc++.h>
+#include <tr1/memory>
 
 using namespace std;
+/*constantes referentes a um atributo da struct deputado*/
+const int DEP_NAME = 0;
+const int ESTATE = 1;
+const int PARTY = 2;
+const int REFOUND_DESCRIPTION = 3;
+const int COMPANY_NAME = 4;
+const int COMPANY_ID = 5;
+const int REFUND_DATE = 6;
+const int REFUND_VALUE = 7;
 
-typedef struct{
+typedef struct deputy{
   string deputy_name;
   string estate;
   string party;
@@ -12,86 +22,70 @@ typedef struct{
   string company_name;
   double company_id;
   string refund_date;
-  int refund_value;
-  int annomally;
-}Deputy;
+  float refund_value;
+  bool anomally;
+  bool operator!=(const struct deputy& v2){
+    if((deputy_name != v2.deputy_name)&&(estate != v2.estate)&&
+      (party != v2.party)&&(refound_description!=v2.refound_description)&&
+      (company_name!=v2.company_name)&&(company_id!=v2.company_id)&&
+      (refund_date!=v2.refund_date)&&(refund_value!=v2.refund_value)){
+      return true;
+    }
+    return false;
+  }
+}Deputy;/*struct deputado e suas instancias*/
 
-class Node{
+class Node{/*nodo da arvore*/
 friend class Tree;
 private:
-  Node(Deputy dado);
-  Deputy deputado;
-  Node *right;
+  Node(Deputy dado);/*construtor do nodo*/
+  Deputy deputado;/*informacao contida no nodo*/
+  Node *right;/*referencia para o proximo elemento*/
   Node *left;
-  int level_right;
+  int level_right;/*níveis das subarvores geradas(direita e esquerda)*/
   int level_left;
-public:
-  int split_attribute;
-  int split_value;
 };
 
 class Tree{
 friend class Forest;
 private:
-  static const int DEP_NAME;
-  static const int ESTATE;
-  static const int PARTY;
-  static const int REFOUND_DESCRIPTION;
-  static const int COMPANY_NAME;
-  static const int COMPANY_ID;
-  static const int REFUND_DATE;
-  static const int REFUND_VALUE;
-  Node *root;
-  void Insert(Deputy data,Node* leaf);
-  void Insert_Leaf(Node* leaf,Node* local);
-  void Destroy_tree(Node *no);
-  int PathLength(int x,Node* no,int current_length);
-  bool TestNode(Deputy data, Node* leaf);
+  Node *root;/*raiz da arvore*/
+  int split_attribute; /*atributo de divisao da arvore*/
+  std::vector<Deputy>PathAnomally; /*caminho anomalo*/
+  void Insert(Deputy data,Node* leaf); /*Inserção de dados na arvore*/
+  void Insert_Leaf(Node* leaf,Node* local); /*inserção de nodos na arvore*/
+  void Destroy_tree(Node *no); /*destrutor da arvore*/
+  int PathLength(Node* no,int current_length); /*calcula o tamanho do caminho a partir de um nodo e retorna um int*/
+  bool TestNode(Deputy data, Node* leaf); /*testa o nodo*/
 public:
-  Tree();
-  ~Tree();
+  Tree(); /*construtor da arvore*/
+  Tree(int split_attr,std::vector<Deputy> data,int limit_height);
+  ~Tree();/*destrutor*/
   void Insert(Deputy data);
-  void left(Tree tree);
-  void right(Tree tree);
-  int PathLength(int x,int current_length = 0);
+  int PathLength(int current_length = 0);/*tamanho do caminho*/
+  void iTree(std::vector<Deputy> X,int limit_height); /*função iTree isola dados a partir de um vetor X*/
 };
 
 class Forest{
 private:
-  static const int DEP_NAME;
-  static const int ESTATE;
-  static const int PARTY;
-  static const int REFOUND_DESCRIPTION;
-  static const int COMPANY_NAME;
-  static const int COMPANY_ID;
-  static const int REFUND_DATE;
-  static const int REFUND_VALUE;
-  static bool Compare_Dep_Name(const Deputy& dep1,const Deputy& dep2);
-  static bool Compare_Estate(const Deputy& dep1,const Deputy& dep2);
-  static bool Compare_Party(const Deputy& dep1,const Deputy& dep2);
-  static bool Compare_Refound_description(const Deputy& dep1,const Deputy& dep2);
-  static bool Compare_Company_Name(const Deputy& dep1,const Deputy& dep2);
-  static bool Compare_Company_Id(const Deputy& dep1,const Deputy& dep2);
-  static bool Compare_Refund_date(const Deputy& dep1,const Deputy& dep2);
-  static bool Compare_Refund_value(const Deputy& dep1,const Deputy& dep2);
-  std::vector<Deputy> filter_left(std::vector<Deputy> X,int limit);
-  std::vector<Deputy> filter_right(std::vector<Deputy> X,int limit);
-  std::vector<Deputy> Sort_Vector(std::vector<Deputy> X,int split);
-  int split_value;
+  int split_value;/*valores para o critério de divisão das arvores*/
   int split_attribute;
   vector<Deputy>::iterator lastbegin;
+  int lastIndex;
   std::vector<int> atributos;
-  std::vector<Tree> set_of_tree;
+  std::vector<Tree*> set_of_tree; /*quantidade de arvores dentro da floresta*/
   void setSplitAtt();
+  void initialize_VectorAtt();
   void reset_AttVector();
-  std::vector<Deputy> sample(std::vector<Deputy> X, int sub_sample);
+  std::vector<Deputy> pathAnomaly;/*caminho anormal*/
+  std::vector<Deputy> sample(std::vector<Deputy> X, int sub_sample);/*gera um sub-vetor apartir de X*/
+  Tree* iTree(std::vector<Deputy> X,int limit_height); /*funcao iTree*/
 public:
-  Forest();
-  void operator+(Tree tree);
-  void putTree(Tree tree);
-  Tree iTree(std::vector<Deputy> X,int current_height,int limit_height);
-  void iForest(std::vector<Deputy> X,int trees,int sub_sample = 256);
-  int PathLengthLonger(int x);
+  Forest(); /*construtor da floresta*/
+  void putTree(Tree *tree); /*Insere arvores na floresta*/
+  void iForest(std::vector<Deputy> X,int trees,int sub_sample = 256); /*função Iforest,isola um conjunto de arvores a partir de uma massa de dados X*/
+  int PathLengthLonger(int x); /*pega o maior caminho a partir de uma instancia x da struct deputy*/
+  std::vector<Deputy> PathAnomally(); /*retorna o caminho anormal*/
 };
 
 #endif
