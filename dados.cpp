@@ -42,7 +42,7 @@ void InsereRegistros(Grafo *grafo, int nro_reg){
       dep.company_name = company_name;
       dep.company_id = atoi(company_id.c_str());
       dep.refund_date = refund_date;
-      dep.refund_value = atoi(refund_value.c_str());
+      dep.refund_value = atof(refund_value.c_str());
       
       grafo->InsereVertice(dep);
     }    
