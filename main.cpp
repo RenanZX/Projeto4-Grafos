@@ -3,10 +3,18 @@
 
 int main(){
   
-  //Grafo grafo;
+  Grafo grafo;
+  int nro_reg;
 
-  //InsereRegistros(&grafo);
-  //grafo.CalculateForest(300);
-  //grafo.ImprimirGrafo();
+  cout << "Digite a quantidade de registros a serem lidos: ";
+  cin >> nro_reg;
+
+  InsereRegistros(&grafo, nro_reg);
+
+  cout << "Calculando anomalias, aguarde..." << endl;
+
+  grafo.CalculateForest(nro_reg);
+  grafo.ImprimirGrafo();
+
 	return 0;
 }
