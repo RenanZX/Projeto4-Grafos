@@ -44,7 +44,12 @@ void Grafo::find_anomally(){
 			}
 
 			if(std::find(Company_ids.begin(),Company_ids.end(),Organize[i].company_id) == Company_ids.end()){
-				Company_ids.push_back(Organize[i].company_id);
+				if(Organize[i].company_id < 0){
+					Organize[i].company_id = Organize[i].company_id*(-1);
+				}
+				if(Organize[i].company_id !=0){
+					Company_ids.push_back(Organize[i].company_id);
+				}
 			}
 
 			if(std::find(Refound_Dates.begin(),Refound_Dates.end(),Organize[i].refund_date) == Refound_Dates.end()){
@@ -52,7 +57,12 @@ void Grafo::find_anomally(){
 			}
 
 			if(std::find(Refound_Values.begin(),Refound_Values.end(),Organize[i].refund_value) == Refound_Values.end()){
-				Refound_Values.push_back(Organize[i].refund_value);
+				if(Organize[i].refund_value < 0){
+					Organize[i].refund_value = Organize[i].refund_value*(-1);
+				}
+				if(Organize[i].refund_value != 0 ){
+					Refound_Values.push_back(Organize[i].refund_value);
+				}
 			}
 		}
 	}

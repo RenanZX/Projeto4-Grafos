@@ -20,7 +20,7 @@ typedef struct deputy{
   string party;
   string refound_description;
   string company_name;
-  string company_id;
+  double company_id;
   string refund_date;
   float refund_value;
   bool anomally;
