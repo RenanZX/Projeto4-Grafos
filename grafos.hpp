@@ -12,9 +12,9 @@ private:
   std::vector<string>Party;
   std::vector<string>Refound_Descriptions;
   std::vector<string>Company_names;
-  std::vector<double>Company_ids;
+  std::vector<string>Company_ids;
   std::vector<string>Refound_Dates;
-  std::vector<int>Refound_Values;
+  std::vector<float>Refound_Values;
   Tree tree;
   Forest forest;
   void Sort_Vectors();
