@@ -41,8 +41,8 @@ void InsereRegistros(Grafo *grafo, int nro_reg){
       dep.party = political_party;
       dep.refound_description = refund_description;
       dep.company_name = company_name;
-      //dep.company_id = atoi(company_id.c_str());
-      dep.company_id = company_id;
+      dep.company_id = atof(company_id.c_str());
+      //dep.company_id = company_id; versao salva como string
       dep.refund_date = refund_date;
       dep.refund_value = atof(refund_value.c_str());
       
