@@ -22,7 +22,7 @@ typedef struct deputy{
   string company_name;
   double company_id;
   string refund_date;
-  int refund_value;
+  float refund_value;
   bool anomally;
   bool operator!=(const struct deputy& v2){
     if((deputy_name != v2.deputy_name)&&(estate != v2.estate)&&
