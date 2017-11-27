@@ -26,7 +26,8 @@ void InsereRegistros(Grafo *grafo, int nro_reg){
       getline(getline(getline(getline(getline(getline(getline(getline(getline(iss, deputy_id, ','), deputy_name, ','), deputy_state, ','), political_party, ','), refund_description,','), company_name, ','), company_id, ','), refund_date, ','), refund_value, ',');
       
       // TESTE DEBUGGER
-      cout << "| deputy_id: "           << deputy_id
+      cout << "###   Informações sobre o político lido:    ###\n"
+           << "| deputy_id: "           << deputy_id
            << "| deputy_name: "         << deputy_name
            << "| deputy_state: "        << deputy_state
            << "| political_party: "     << political_party
@@ -34,7 +35,7 @@ void InsereRegistros(Grafo *grafo, int nro_reg){
            << "| company_name: "        << company_name
            << "| company_id: "          << company_id
            << "| refund_date: "         << refund_date
-           << "| refund_value: "        << refund_value << "\n\n ### ANOTHER REGISTER: #" <<endl;
+           << "| refund_value: "        << refund_value << "\n" <<endl;
 
       dep.deputy_name = deputy_name;
       dep.estate = deputy_state;
